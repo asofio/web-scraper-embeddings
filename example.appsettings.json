@@ -1,0 +1,20 @@
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "Settings": {
+        "AzureOpenAIKey": "[AzureOpenAIKey]",
+        "AzureOpenAIEndpoint": "[AzureOpenAIEndpoint]",
+        "AzureOpenAIModelDeploymentName": "[AzureOpenAIModelDeploymentName]",
+        "AzureCognitiveSearchKey": "[AzureCognitiveSearchKey]",
+        "AzureCognitiveSearchEndpoint": "[AzureCognitiveSearchEndpoint]",
+        "AzureCognitiveSearchVectorIndexName": "[AzureCognitiveSearchVectorIndexName]",
+        "MaxWebCrawlDepth": 3,
+        "UrlsToCrawl": [
+            "[UrlToCrawl]"
+        ]        
+    }
+}
