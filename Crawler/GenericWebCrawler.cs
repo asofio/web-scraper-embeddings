@@ -3,6 +3,7 @@ using Abot2.Poco;
 using WebScraperEmbeddings.Models;
 using AngleSharp.Html.Parser;
 using Serilog;
+using System.Web;
 
 namespace WebScraperEmbeddings.Crawler
 {
@@ -10,7 +11,7 @@ namespace WebScraperEmbeddings.Crawler
     {
         private readonly List<Uri> _seedUris;
         private readonly Settings _settings;
-        private readonly List<ScrapedPage> _scrapedPages = new List<ScrapedPage>();
+        private List<ScrapedPage> _scrapedPages = new List<ScrapedPage>();
 
         public List<ScrapedPage> ScrapedPages { 
             get {
@@ -56,7 +57,7 @@ namespace WebScraperEmbeddings.Crawler
             }
         }
 
-        public void PageCrawlCompleted(object sender, PageCrawlCompletedArgs e)
+        public void PageCrawlCompleted(object? sender, PageCrawlCompletedArgs e)
         {
             var httpStatus = e.CrawledPage.HttpResponseMessage.StatusCode;
             var rawPageText = e.CrawledPage.Content.Text;
@@ -77,9 +78,9 @@ namespace WebScraperEmbeddings.Crawler
                 _scrapedPages.Add(new ScrapedPage
                 {
                     Id = Guid.NewGuid().ToString(),
-                    title = e.CrawledPage.Uri.ToString(),
-                    content = trimmedContent,
-                    url = e.CrawledPage.Uri.ToString()
+                    Title = e.CrawledPage.Uri.ToString(),
+                    Content = trimmedContent,
+                    Url = e.CrawledPage.Uri.ToString()
                 });
             }
         }

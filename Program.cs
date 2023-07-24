@@ -39,12 +39,13 @@ namespace WebScraperEmbeddings
                 return;
             }
 
-            var crawler = new GenericWebCrawler(_settings.UrlsToCrawl.Select(x => new Uri(x)).ToList(), _settings);
+            var uris = _settings.UrlsToCrawl.Select(x => new Uri(x)).ToList();
+            var crawler = new GenericWebCrawler(uris, _settings);
 
             await crawler.CrawlAsync();
 
             var embeddingsGenerator = new EmbeddingGenerator(_settings.AzureOpenAIKey, _settings.AzureOpenAIEndpoint, _settings.AzureOpenAIModelDeploymentName);
-            var scrapedPages = await embeddingsGenerator.GenerateEmeddingsAsync(crawler.ScrapedPages);
+            var scrapedPages = await embeddingsGenerator.GenerateEmbeddingsAsync(crawler.ScrapedPages);
 
             var indexer = new WebIndexer(_settings.AzureCognitiveSearchKey, _settings.AzureCognitiveSearchEndpoint, _settings.AzureCognitiveSearchIndexName);
             await indexer.IndexScrapedPagesAsync(scrapedPages);

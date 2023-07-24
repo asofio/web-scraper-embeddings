@@ -15,12 +15,12 @@ namespace WebScraperEmbeddings.Indexer
             _aoaiDeploymentName = aoaiDeploymentName;
         }
 
-        public async Task<List<ScrapedPage>> GenerateEmeddingsAsync(List<ScrapedPage> scrapedPages) {
+        public async Task<List<ScrapedPage>> GenerateEmbeddingsAsync(List<ScrapedPage> scrapedPages) {
             foreach(var scrapedPage in scrapedPages) {
-                scrapedPage.titleVector = await GetEmbeddingAsync(scrapedPage.title);
-                scrapedPage.contentVector = await GetEmbeddingAsync(scrapedPage.content);
+                scrapedPage.TitleVector = await GetEmbeddingAsync(scrapedPage.Title);
+                scrapedPage.ContentVector = await GetEmbeddingAsync(scrapedPage.Content);
 
-                Log.Information($"Embeddings generated for {scrapedPage.title}");
+                Log.Information($"Embeddings generated for {scrapedPage.Title}");
             }
 
             return scrapedPages;

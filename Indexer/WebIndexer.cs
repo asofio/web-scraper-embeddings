@@ -14,6 +14,8 @@ namespace WebScraperEmbeddings.Indexer
             Azure.AzureKeyCredential credential = new Azure.AzureKeyCredential(cogSearchKey);
             SearchIndexClient indexClient = new SearchIndexClient(new Uri(cogSearchEndpoint), credential);
             _searchClient = indexClient.GetSearchClient(indexName);
+
+            Log.Information($"Created Cognitive Search client against the {indexName} index.");
         }
 
         public async Task IndexScrapedPagesAsync(List<ScrapedPage> scrapedPages)
