@@ -20,7 +20,7 @@ namespace WebScraperEmbeddings.Indexer
                 scrapedPage.TitleVector = await GetEmbeddingAsync(scrapedPage.Title);
                 scrapedPage.ContentVector = await GetEmbeddingAsync(scrapedPage.Content);
 
-                Log.Information($"Embeddings generated for {scrapedPage.Title}");
+                Log.Information($"Embeddings generated for {scrapedPage.Url}");
             }
 
             return scrapedPages;

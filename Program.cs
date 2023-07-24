@@ -12,6 +12,7 @@ using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Serilog;
 using Microsoft.Extensions.Configuration;
+using System.Text.RegularExpressions;
 
 namespace WebScraperEmbeddings
 {

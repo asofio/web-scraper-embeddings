@@ -4,6 +4,7 @@ using WebScraperEmbeddings.Models;
 using AngleSharp.Html.Parser;
 using Serilog;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace WebScraperEmbeddings.Crawler
 {
@@ -76,11 +77,12 @@ namespace WebScraperEmbeddings.Crawler
             var content = htmldoc.DocumentElement.TextContent;
             var trimmedContent = content.Replace("\n", String.Empty).Replace("\t", String.Empty);
 
-            if(!String.IsNullOrEmpty(trimmedContent)) {
+            // Check that the trimmed string is not empty and contains at least one alphanumeric character
+            if(!String.IsNullOrEmpty(trimmedContent) && Regex.IsMatch(trimmedContent, @"\w+")) {
                 _scrapedPages.Add(new ScrapedPage
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Title = e.CrawledPage.Uri.ToString(),
+                    Id = e.CrawledPage.Uri.GetHashCode().ToString(),
+                    Title = (String.IsNullOrEmpty(htmldoc.Title)) ? e.CrawledPage.Uri.ToString() : htmldoc.Title,
                     Content = trimmedContent,
                     Url = e.CrawledPage.Uri.ToString()
                 });
