@@ -39,14 +39,16 @@ namespace WebScraperEmbeddings
                 return;
             }
 
+            // Crawl all of the configured Urls
             var uris = _settings.UrlsToCrawl.Select(x => new Uri(x)).ToList();
             var crawler = new GenericWebCrawler(uris, _settings);
+            var scrapedPages = await crawler.CrawlAsync();
 
-            await crawler.CrawlAsync();
-
+            // Generate embeddings for each page
             var embeddingsGenerator = new EmbeddingGenerator(_settings.AzureOpenAIKey, _settings.AzureOpenAIEndpoint, _settings.AzureOpenAIModelDeploymentName);
-            var scrapedPages = await embeddingsGenerator.GenerateEmbeddingsAsync(crawler.ScrapedPages);
+            scrapedPages = await embeddingsGenerator.GenerateEmbeddingsAsync(scrapedPages);
 
+            // Persist the index to Azure Cognitive Search
             var indexer = new WebIndexer(_settings.AzureCognitiveSearchKey, _settings.AzureCognitiveSearchEndpoint, _settings.AzureCognitiveSearchIndexName);
             await indexer.IndexScrapedPagesAsync(scrapedPages);
         }        

@@ -25,12 +25,12 @@ namespace WebScraperEmbeddings.Crawler
             _settings = settings;
         }
 
-        public async Task CrawlAsync()
+        public async Task<List<ScrapedPage>> CrawlAsync()
         {
-            await SimpleCrawlerAsync();
+            return await SimpleCrawlerAsync();
         }
 
-        private async Task SimpleCrawlerAsync()
+        private async Task<List<ScrapedPage>> SimpleCrawlerAsync()
         {
             var config = new CrawlConfiguration
             {
@@ -55,6 +55,8 @@ namespace WebScraperEmbeddings.Crawler
             foreach(var uri in _seedUris) {
                 await crawler.CrawlAsync(uri);
             }
+
+            return _scrapedPages;
         }
 
         public void PageCrawlCompleted(object? sender, PageCrawlCompletedArgs e)
