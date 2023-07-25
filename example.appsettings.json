@@ -11,7 +11,7 @@
         "AzureOpenAIModelDeploymentName": "[AzureOpenAIModelDeploymentName]",
         "AzureCognitiveSearchKey": "[AzureCognitiveSearchKey]",
         "AzureCognitiveSearchEndpoint": "[AzureCognitiveSearchEndpoint]",
-        "AzureCognitiveSearchVectorIndexName": "[AzureCognitiveSearchVectorIndexName]",
+        "AzureCognitiveSearchIndexName": "[AzureCognitiveSearchVectorIndexName]",
         "MaxWebCrawlDepth": 3,
         "UrlsToCrawl": [
             "[UrlToCrawl]"
